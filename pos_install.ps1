@@ -28,14 +28,17 @@ Write-host ">>> Installing VScode"
 choco install vscode
 
 Write-host ">>> Installing AWS-Vault"
-choco install aws-vault
+choco install -y aws-vault
 
 Write-Host ">>> Installing Terraform"
-choco install terraform
+choco install -y terraform
 
-Write-host ">>> Installing Docker and Docker compose"
-choco install docker-desktop
-choco install docker-compose
+Write-host ">>> Installing Docker"
+choco install -y docker-desktop
+Write-host ">>> Installing Docker compose"
+choco install -y docker-compose
 
 Write-Host ">>> Installing AWS-CLI"
-choco install awscli
+choco install -y awscli
+
+Write-Host ">>> Done"
