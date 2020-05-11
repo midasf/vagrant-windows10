@@ -24,8 +24,15 @@ catch {
     New-ItemProperty -Path $path -Name 'VisualFXSetting' -Value 2 -PropertyType 'DWORD'
 }
 
+Write-Host ">>> Installing Hyper-V prerequisites for Docker"
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+
 Write-host ">>> Installing VScode"
-choco install vscode
+choco install -y vscode
+
+Write-host ">>> Installing GIT"
+choco install -y git
 
 Write-host ">>> Installing AWS-Vault"
 choco install -y aws-vault
@@ -40,5 +47,9 @@ choco install -y docker-compose
 
 Write-Host ">>> Installing AWS-CLI"
 choco install -y awscli
+
+Write-Host ">>> Installing Extra's like Chrome etc"
+choco install -y Chrome
+choco install -y firefox
 
 Write-Host ">>> Done"

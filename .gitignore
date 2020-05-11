@@ -4,3 +4,6 @@ packerbuild.log
 windowsbuild.zip
 packer_cache/
 output-virtualbox-iso/
+vagrantfile
+vagrantfile.template
+.vagrant
