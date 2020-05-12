@@ -34,10 +34,32 @@ mkdir -Force C:/Users/Administrator/.ssh
 
 
 Write-Host "Install OpenSSH"
-netsh advfirewall firewall add rule name="Autounattend SSH" dir=in localport=22 protocol=TCP action=block
+netsh advfirewall firewall add rule name="Autounattend SSH" dir=in localport=22 protocol=TCP action=allow
 
 choco install openssh -y --version 7.7.2.1 -params '"/SSHServerFeature"' # /PathSpecsToProbeForShellEXEString:$env:windir\system32\windowspowershell\v1.0\powershell.exe"'
 
-sc.exe config sshd start= auto
+sc.exe config sshd start=auto
 net start sshd
-netsh advfirewall firewall delete rule name="Autounattend SSH"
+#netsh advfirewall firewall delete rule name="Autounattend SSH"
+
+Write-Host ">>> Setting up WinRM"
+# Supress network location Prompt
+New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Network\NewNetworkWindowOff" -Force
+
+# Set network to private
+$ifaceinfo = Get-NetConnectionProfile
+Set-NetConnectionProfile -InterfaceIndex $ifaceinfo.InterfaceIndex -NetworkCategory Private 
+
+# Set up WinRM and configure some things
+winrm quickconfig -q
+winrm s "winrm/config" '@{MaxTimeoutms="1800000"}'
+winrm s "winrm/config/winrs" '@{MaxMemoryPerShellMB="2048"}'
+winrm s "winrm/config/service" '@{AllowUnencrypted="true"}'
+winrm s "winrm/config/service/auth" '@{Basic="true"}'
+
+# Enable the WinRM Firewall rule, which will likely already be enabled due to the 'winrm quickconfig' command above
+Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
+
+sc.exe config winrm start= auto
+
+exit 0

@@ -25,8 +25,8 @@ catch {
 }
 
 Write-Host ">>> Installing Hyper-V prerequisites for Docker"
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -norestart
+Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -norestart
 
 Write-host ">>> Installing VScode"
 choco install -y vscode
@@ -51,5 +51,9 @@ choco install -y awscli
 Write-Host ">>> Installing Extra's like Chrome etc"
 choco install -y Chrome
 choco install -y firefox
+
+Write-Host ">>> Setting up SSH for Vagrant"
+curl https://github.com/hashicorp/vagrant/blob/master/keys/vagrant -UseBasicParsing -OutFile ~/.ssh/vagrant
+curl https://github.com/hashicorp/vagrant/blob/master/keys/vagrant.pub -UseBasicParsing -OutFile ~/.ssh/vagrant.pub
 
 Write-Host ">>> Done"

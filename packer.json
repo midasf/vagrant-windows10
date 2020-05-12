@@ -8,21 +8,24 @@
   "builders": [
   {    
     "type": "hyperv-iso",
-    "communicator": "ssh",
+    "communicator": "winrm",
     "disk_size": 61440,
     "floppy_files": [
       "Autounattend.xml",
-      "configure-ssh.ps1"
+      "configure-connectivity.ps1"
     ],
     "headless": true,
     "iso_url": "{{user `iso_path`}}",
-    "iso_checksum_type": "sha",
+    "iso_checksum_type": "sha256",
     "iso_checksum": "{{user `iso_md5`}}",    
     "winrm_username": "vagrant",
     "winrm_password": "vagrant",
-    "winrm_timeout": "6h",
+    "ssh_timeout": "2h",
     "switch_name": "{{user `switch_name`}}",    
     "skip_compaction": false,
+    "enable_virtualization_extensions": true,
+    "memory": 4096,
+    "cpus": 4,
     "shutdown_command": "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\"",
     "generation": "1"
     },
@@ -32,7 +35,8 @@
     "disk_size": 61440,
     "floppy_files": [
       "Autounattend.xml",
-      "configure-ssh.ps1"
+      "configure-ssh.ps1",
+      "configure-winrm.ps1"
     ],
     "guest_os_type": "Windows10_64",
     "headless": true,

@@ -85,8 +85,8 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\configure-ssh.ps1</CommandLine>
-                    <Description>Installs SSH on the host</Description>
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\configure-connectivity.ps1</CommandLine>
+                    <Description>Setting up connectivity on the host</Description>
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                 </SynchronousCommand>
