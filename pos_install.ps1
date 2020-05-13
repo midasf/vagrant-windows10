@@ -53,6 +53,7 @@ choco install -y Chrome
 choco install -y firefox
 
 Write-Host ">>> Setting up SSH for Vagrant"
+New-Item -ItemType directory -Path ~/.ssh
 curl https://github.com/hashicorp/vagrant/blob/master/keys/vagrant -UseBasicParsing -OutFile ~/.ssh/vagrant
 curl https://github.com/hashicorp/vagrant/blob/master/keys/vagrant.pub -UseBasicParsing -OutFile ~/.ssh/vagrant.pub
 
